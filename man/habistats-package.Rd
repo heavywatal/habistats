@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com}
+\strong{Maintainer}: Watal M. Iwasaki \email{heavywatal@gmail.com} (\href{https://orcid.org/0000-0002-4718-7605}{ORCID})
 
 }
 \keyword{internal}
