@@ -1,0 +1,10 @@
+test_that("raster_kmz works", {
+  kmz = raster_kmz()
+  expect_s4_class(kmz, "RasterLayer")
+  expect_identical(raster::nlayers(kmz), 1)
+  expect_identical(raster::nrow(kmz), 6480L)
+  expect_identical(raster::ncol(kmz), 12960L)
+  expect_identical(raster::ncell(kmz), 12960 * 6480)
+  expect_identical(raster::minValue(kmz), 1)
+  expect_identical(raster::maxValue(kmz), 32)
+})
