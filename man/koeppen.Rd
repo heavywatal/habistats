@@ -2,9 +2,12 @@
 % Please edit documentation in R/koeppen.R
 \name{raster_kmz}
 \alias{raster_kmz}
+\alias{raster_kgc}
 \title{Köppen-Geiger Climate Classification}
 \usage{
 raster_kmz(mask = NULL)
+
+raster_kgc(mask = NULL)
 }
 \arguments{
 \item{mask}{sfg object.}
