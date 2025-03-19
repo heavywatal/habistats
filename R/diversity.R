@@ -21,6 +21,6 @@ count_values = function(ras) {
 }
 
 get_values_na_omit = function(ras) {
-  values = raster::values(ras)
+  values = terra::values(ras)
   as.vector(stats::na.omit(values))
 }

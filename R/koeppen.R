@@ -8,10 +8,10 @@
 #' @rdname koeppen
 #' @export
 raster_kmz = function(mask = NULL) {
-  kmz = raster::raster(vals = kgc::kmz, nrow = 6480L, ncol = 12960L)
+  kmz = terra::rast(vals = kgc::kmz, nrow = 6480L, ncol = 12960L)
   if (!is.null(mask)) {
     mask = methods::as(mask, "Spatial")
-    raster::mask(kmz, mask = mask)
+    terra::mask(kmz, mask = mask)
   } else {
     kmz
   }
