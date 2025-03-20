@@ -3,22 +3,8 @@
 #' @seealso <https://koeppen-geiger.vu-wien.ac.at>
 #'
 #' @description
-#' [`raster_kmz()`] returns the KGC raster masked by a given polygon.
+#' [`raster_kgc()`] returns the KGC raster masked by a given polygon.
 #' @param mask sfg object.
-#' @rdname koeppen
-#' @export
-raster_kmz = function(mask = NULL) {
-  kmz = terra::rast(vals = kgc::kmz, nrow = 6480L, ncol = 12960L)
-  if (!is.null(mask)) {
-    if (!inherits(mask, "SpatVector")) {
-      mask = terra::vect(mask)
-      terra::crs(mask) = "OGC:CRS84"
-    }
-    kmz = terra::mask(kmz, mask = mask)
-  }
-  kmz
-}
-
 #' @rdname koeppen
 #' @export
 raster_kgc = function(mask = NULL) {

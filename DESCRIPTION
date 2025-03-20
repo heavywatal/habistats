@@ -13,7 +13,6 @@ Depends:
     R (>= 4.4)
 Imports:
     fs,
-    kgc,
     purrr,
     sf,
     tabula,
