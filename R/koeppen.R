@@ -1,47 +1,28 @@
 #' Köppen-Geiger Climate Classification
 #'
-#' @seealso <https://koeppen-geiger.vu-wien.ac.at>
+#' @format A `stars` object with 2 dimensions and 1 attribute.
+#' @source <https://koeppen-geiger.vu-wien.ac.at>
 #'
 #' @description
 #' [`raster_kgc()`] returns the KGC raster masked by a given polygon.
-#' @param mask sfg object.
+#' @param mask sf or sfc object.
 #' @rdname koeppen
 #' @export
 raster_kgc = function(mask = NULL) {
-  kgc = unwrap_kgc()
-  if (!is.null(mask)) {
-    if (!inherits(mask, "SpatVector")) {
-      mask = terra::vect(mask)
-      terra::crs(mask) = "OGC:CRS84"
-    }
-    kgc = terra::mask(kgc, mask = mask)
+  if (is.null(mask)) {
+    kg5m
+  } else {
+    suppressMessages(sf::st_crop(kg5m, mask))
   }
-  kgc
-}
-
-unwrap_kgc = function() {
-  name = "kgc_5m"
-  if (!exists(name, envir = cache_env)) {
-    x = terra::unwrap(.KG_1986_2010)
-    terra::crs(x) = "OGC:CRS84"
-    levels(x) = data.frame(
-      id = seq_along(climate_colors),
-      climate = names(climate_colors)
-    )
-    stopifnot(terra::is.factor(x))
-    assign(name, x, envir = cache_env)
-  }
-  get(name, envir = cache_env)
 }
 
 augment_raster = function(x, na.rm = FALSE) {
-  res = terra::as.data.frame(x, xy = TRUE, na.rm = na.rm)
+  res = as.data.frame(x)
   class(res) = c("tbl_df", "tbl", "data.frame")
   names(res)[3L] = "climate"
   res
 }
 
-cache_env = new.env()
 
 climate_colors = c(
   Af = "#960000",
@@ -77,3 +58,7 @@ climate_colors = c(
   ET = "#64FFFF",
   Ocean = "#F5FFFF"
 )
+
+.ignore_unused_imports = function() {
+  stars::read_stars
+}

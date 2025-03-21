@@ -11,10 +11,15 @@ if (!file.exists(zip_file) && !dir.exists(extracted)) {
 }
 unzip(zip_file, exdir = cache_dir)
 
-kgc_5m = terra::rast(file.path(extracted, "KG_1986-2010.grd"))
-terra::values(kgc_5m) = terra::values(kgc_5m) |> as.integer()
-stopifnot(terra::is.int(kgc_5m))
+as_matrix_int = function(x) {
+  d = dim(x)
+  x = as.integer(x)
+  dim(x) = d
+  x
+}
 
-.KG_1986_2010 = terra::wrap(kgc_5m)
+grd = file.path(extracted, "KG_1986-2010.grd")
+kg5m = stars::read_stars(grd)
+kg5m[[1]] = as_matrix_int(kg5m[[1]])
 
-usethis::use_data(.KG_1986_2010, internal = TRUE, overwrite = TRUE)
+usethis::use_data(kg5m, internal = TRUE, overwrite = TRUE)

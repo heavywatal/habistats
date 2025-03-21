@@ -3,15 +3,18 @@
 \name{raster_kgc}
 \alias{raster_kgc}
 \title{Köppen-Geiger Climate Classification}
+\format{
+A \code{stars} object with 2 dimensions and 1 attribute.
+}
+\source{
+\url{https://koeppen-geiger.vu-wien.ac.at}
+}
 \usage{
 raster_kgc(mask = NULL)
 }
 \arguments{
-\item{mask}{sfg object.}
+\item{mask}{sf or sfc object.}
 }
 \description{
 \code{\link[=raster_kgc]{raster_kgc()}} returns the KGC raster masked by a given polygon.
-}
-\seealso{
-\url{https://koeppen-geiger.vu-wien.ac.at}
 }

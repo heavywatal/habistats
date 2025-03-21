@@ -2,7 +2,7 @@
 #'
 #' @description
 #' [`index_brillouin()`] calculates the Brillouin diversity index for a raster layer.
-#' @param ras RasterLayer object.
+#' @param ras A `stars` object.
 #' @rdname diversity
 #' @export
 index_brillouin = function(ras) {
@@ -21,6 +21,6 @@ count_values = function(ras) {
 }
 
 get_values_na_omit = function(ras) {
-  values = terra::values(ras)
+  values = as.vector(ras[[1L]])
   as.vector(stats::na.omit(values))
 }

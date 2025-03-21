@@ -1,9 +1,7 @@
 test_that("raster_kgc works", {
   x = raster_kgc()
-  expect_s4_class(x, "SpatRaster")
-  expect_identical(terra::nlyr(x), 1)
-  expect_identical(terra::nrow(x), 2160)
-  expect_identical(terra::ncol(x), 4320)
-  expect_identical(terra::ncell(x), 2160  * 4320)
-  expect_identical(as.vector(terra::minmax(x)), c(1, 32))
+  expect_s3_class(x, "stars")
+  expect_length(x, 1L)
+  expect_identical(dim(x), c(x = 4320L, y = 2160L))
+  expect_identical(range(x[[1L]]), c(1L, 32L))
 })

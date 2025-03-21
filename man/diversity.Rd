@@ -10,7 +10,7 @@ index_brillouin(ras)
 count_values(ras)
 }
 \arguments{
-\item{ras}{RasterLayer object.}
+\item{ras}{A \code{stars} object.}
 }
 \description{
 \code{\link[=index_brillouin]{index_brillouin()}} calculates the Brillouin diversity index for a raster layer.

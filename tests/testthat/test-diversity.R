@@ -1,7 +1,9 @@
 test_that("index_brillouin works", {
   n = 8L
   v = seq_len(n)
-  ras = terra::rast(vals = v, nrow = n, ncol = 1L)
+  m = matrix(v, nrow = n, ncol = 1L)
+  dim(m) = c(x = n, y = 1L)
+  ras = stars::st_as_stars(m)
   d = index_brillouin(ras) |>
     expect_type("double") |>
     expect_length(1) |>
