@@ -2,6 +2,8 @@
 % Please edit documentation in R/koeppen.R
 \name{raster_kgc}
 \alias{raster_kgc}
+\alias{scale_color_kgc}
+\alias{scale_fill_kgc}
 \title{Köppen-Geiger Climate Classification}
 \format{
 A \code{stars} object with 2 dimensions and 1 attribute.
@@ -11,10 +13,26 @@ A \code{stars} object with 2 dimensions and 1 attribute.
 }
 \usage{
 raster_kgc(mask = NULL)
+
+scale_color_kgc(...)
+
+scale_fill_kgc(...)
 }
 \arguments{
 \item{mask}{sf or sfc object.}
+
+\item{...}{passed to \code{\link[ggplot2:scale_manual]{ggplot2::scale_fill_manual()}}.}
 }
 \description{
 \code{\link[=raster_kgc]{raster_kgc()}} returns the KGC raster masked by a given polygon.
+}
+\examples{
+library(ggplot2)
+geo_jp = rnaturalearth::ne_countries(country = "Japan")
+kgc_jp = raster_kgc(geo_jp) |> print()
+ggplot() +
+  stars::geom_stars(data = kgc_jp) +
+  scale_fill_kgc(na.value = "transparent") +
+  coord_fixed() +
+  theme_minimal()
 }
