@@ -3,5 +3,6 @@ test_that("raster_kgc works", {
   expect_s3_class(x, "stars")
   expect_length(x, 1L)
   expect_identical(dim(x), c(x = 4320L, y = 2160L))
-  expect_identical(range(x[[1L]]), c(1L, 32L))
+  expect_s3_class(x[[1L]], "factor")
+  expect_length(levels(x[[1L]]), 32L)
 })
