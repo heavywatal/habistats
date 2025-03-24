@@ -1,7 +1,7 @@
 Package: habistats
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R:c(
+Authors@R: c(
     person("Watal M.", "Iwasaki", , "heavywatal@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4718-7605")),
     person("Fuku", "Sakamoto", , "fukusakamoto29@gmail.com", role = "ctb",
