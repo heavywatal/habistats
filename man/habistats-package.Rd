@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Watal M. Iwasaki \email{heavywatal@gmail.com} (\href{https://orcid.org/0000-0002-4718-7605}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Fuku Sakamoto \email{fukusakamoto29@gmail.com} (\href{https://orcid.org/0009-0009-8531-5303}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}
