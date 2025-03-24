@@ -20,6 +20,11 @@ ls_shapes = function(directory, recurse = TRUE) {
 #' @rdname iucn
 #' @export
 read_shapes = function(files) {
-  dfs = parallel::mclapply(files, sf::read_sf)
+  dfs = parallel::mclapply(files, read_sf_cache)
   purrr::list_rbind(dfs, ptype = dfs[[1L]])
 }
+
+read_sf_cache = function(dsn, ...) {
+  call_cache(sf::read_sf, dsn, ...)
+}
+
