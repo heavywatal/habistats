@@ -15,10 +15,14 @@ BugReports: https://github.com/heavywatal/habistats/issues
 Depends:
     R (>= 4.4)
 Imports:
+    dplyr,
     fs,
     purrr,
+    readr,
+    rlang,
     sf,
     stars,
+    stringr,
     tabula
 Suggests:
     ggplot2,

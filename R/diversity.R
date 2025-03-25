@@ -1,10 +1,25 @@
 #' Diversity Indices
 #'
 #' @description
-#' [`index_brillouin()`] calculates the Brillouin diversity index for a raster layer.
+#' [`summarize_raster()`] calculates various diversity indices from a raster layer.
 #' @param ras A `stars` object.
 #' @rdname diversity
 #' @export
+summarize_raster = function(ras) {
+  cnt = count_values(ras)
+  summarize_count(cnt)
+}
+
+summarize_count = function(cnt) {
+  data.frame(
+    pixels = sum(cnt),
+    richness = length(cnt),
+    idx_shannon = tabula::index_shannon(cnt),
+    idx_simpson = tabula::index_simpson(cnt),
+    idx_brillouin = tabula::index_brillouin(cnt)
+  )
+}
+
 index_brillouin = function(ras) {
   cnt = count_values(ras)
   tabula::index_brillouin(cnt)
@@ -16,11 +31,15 @@ index_brillouin = function(ras) {
 #' @export
 count_values = function(ras) {
   values = get_values_na_omit(ras)
-  tab = table(values, dnn = NULL)
-  as.integer(tab)
+  table_int(values)
 }
 
 get_values_na_omit = function(ras) {
   values = as.vector(ras[[1L]])
   as.vector(stats::na.omit(values))
+}
+
+table_int = function(x) {
+  tab = table(x, dnn = NULL)
+  as.integer(tab)
 }
