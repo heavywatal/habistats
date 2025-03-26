@@ -41,13 +41,13 @@ iucn_source_path = function() {
 }
 
 eval_habitat = function(dsn) {
-  sf1 = union_cache(dsn)
+  sf1 = sf::read_sf(dsn) |> summarize_union()
   geom = attr(sf1, "sf_column")
   kgc = raster_kgc(sf1[[geom]])
   sum_ras = summarize_raster(kgc)
   sf1 |>
-    dplyr::mutate(perimeter = sf::st_perimeter(!!as.name(geom)) |> as.numeric()) |>
-    dplyr::mutate(area = sf::st_area(!!as.name(geom)) |> as.numeric()) |>
+    dplyr::mutate(perimeter = try_s2_perimeter(!!as.name(geom)) |> as.numeric()) |>
+    dplyr::mutate(area = try_s2_area(!!as.name(geom)) |> as.numeric()) |>
     sf::st_set_geometry(NULL) |>
     dplyr::bind_cols(sum_ras)
 }
@@ -112,16 +112,9 @@ union_cache = function(dsn) {
     sf::read_sf(cache_file)
   } else {
     obj = sf::read_sf(dsn)
-    obj = make_valid(obj)
     obj = summarize_union(obj)
     sf::write_sf(obj, cache_file)
   }
-}
-
-make_valid = function(x) {
-  x = sf::st_make_valid(x)
-  is_valid = sf::st_is_valid(x)
-  dplyr::filter(x, is_valid)
 }
 
 summarize_union = function(x) {
@@ -131,7 +124,7 @@ summarize_union = function(x) {
       x,
       SHAPE_Leng = sum(.data$SHAPE_Leng, na.rm = TRUE),
       SHAPE_Area = sum(.data$SHAPE_Area, na.rm = TRUE),
-      !!geom := sf::st_union(x)
+      !!geom := try_s2_union(x)
     )
   } else {
     dplyr::select(x, "SHAPE_Leng", "SHAPE_Area", !!geom)

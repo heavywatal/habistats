@@ -22,7 +22,7 @@ raster_kgc = function(mask = NULL) {
     kg5m
   } else {
     requireNamespace("stars", quietly = TRUE)
-    sf::st_crop(kg5m, mask)
+    try_s2_crop(kg5m, mask)
   }
 }
 
