@@ -5,7 +5,7 @@ test_that("iucn_source_path works", {
     expect_identical(iucn_source_path(), temp)
   )
   withr::with_options(
-    list(habistats.cache_dir = NULL),
+    list(habistats.iucn_source = NULL),
     expect_identical(iucn_source_path(), fs::path("~/db/iucnredlist.org"))
   )
 })
