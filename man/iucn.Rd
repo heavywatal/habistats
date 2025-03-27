@@ -3,15 +3,23 @@
 \name{iucn_spatial_features}
 \alias{iucn_spatial_features}
 \alias{iucn_spatial_species}
+\alias{evaluate_iucn_range}
+\alias{iucn_species_gpkg}
 \title{Read and process IUCN Spatial Data}
 \usage{
 iucn_spatial_features(iucn_source = NULL)
 
 iucn_spatial_species(iucn_source = NULL)
+
+evaluate_iucn_range(sci_name, iucn_source = NULL)
+
+iucn_species_gpkg(iucn_source = NULL)
 }
 \arguments{
 \item{iucn_source}{Path to the directory containing IUCN shape files.
 \code{getOption("habistats.iucn_source")} is used if \code{NULL} is given (default).}
+
+\item{sci_name}{A character vector of species names.}
 }
 \description{
 The IUCN Spatial Data is a large collection of shape files, and these functions
@@ -22,7 +30,11 @@ but subsequent runs will be very quick because the results are cached.
 \code{\link[=iucn_spatial_features]{iucn_spatial_features()}} returns a data.frame without the geometry column.
 This is useful for quick skimming of the whole dataset.
 
-\code{\link[=iucn_spatial_species]{iucn_spatial_species()}} splits IUCN shape files into separate gpkg files
+\code{\link[=iucn_spatial_species]{iucn_spatial_species()}} is a species-level summary of \code{\link[=iucn_spatial_features]{iucn_spatial_features()}}.
+
+\code{\link[=evaluate_iucn_range]{evaluate_iucn_range()}} evaluates the range of each species in the IUCN dataset.
+
+\code{\link[=iucn_species_gpkg]{iucn_species_gpkg()}} splits IUCN shape files into separate gpkg files
 for each species, and returns their paths. This allows for parallel processing
 in downstream analysis, and avoids the need to read large shape files again.
 }

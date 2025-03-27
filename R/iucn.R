@@ -22,12 +22,48 @@ iucn_spatial_features = function(iucn_source = NULL) {
 }
 
 #' @description
-#' [`iucn_spatial_species()`] splits IUCN shape files into separate gpkg files
+#' [`iucn_spatial_species()`] is a species-level summary of [`iucn_spatial_features()`].
+#' @rdname iucn
+#' @export
+iucn_spatial_species = function(iucn_source = NULL) {
+  features = iucn_spatial_features(iucn_source)
+  out = distinct_iucn_species(
+    features,
+    .data$category,
+    .data$marine,
+    .data$terrestria,
+    .data$freshwater
+  )
+  cnt = out |>
+    dplyr::count(.data$sci_name) |>
+    dplyr::filter(.data$n > 1L)
+  if (nrow(cnt) > 0L) {
+    toString(out$sci_name)
+    warning("Multiple entries for ", toString(out$sci_name), call. = FALSE)
+  }
+  out
+}
+
+#' @description
+#' [`evaluate_iucn_range()`] evaluates the range of each species in the IUCN dataset.
+#' @param sci_name A character vector of species names.
+#' @rdname iucn
+#' @export
+evaluate_iucn_range = function(sci_name, iucn_source = NULL) {
+  input = iucn_species_gpkg(iucn_source) |>
+    dplyr::filter(.data$sci_name %in% !!sci_name)
+  rows = parallel::mclapply(input$source, summarize_iucn_union_kgc)
+  out = purrr::list_rbind(rows)
+  dplyr::bind_cols(dplyr::select(input, !"source"), out)
+}
+
+#' @description
+#' [`iucn_species_gpkg()`] splits IUCN shape files into separate gpkg files
 #' for each species, and returns their paths. This allows for parallel processing
 #' in downstream analysis, and avoids the need to read large shape files again.
 #' @rdname iucn
 #' @export
-iucn_spatial_species = function(iucn_source = NULL) {
+iucn_species_gpkg = function(iucn_source = NULL) {
   if (is.null(iucn_source)) {
     iucn_source = iucn_source_path()
   }
@@ -40,8 +76,8 @@ iucn_source_path = function() {
   fs::path(getOption("habistats.iucn_source", "~/db/iucnredlist.org"))
 }
 
-eval_habitat = function(dsn) {
-  sf1 = sf::read_sf(dsn) |> summarize_union()
+summarize_iucn_union_kgc = function(dsn) {
+  sf1 = summarize_iucn_union_cache(dsn)
   geom = attr(sf1, "sf_column")
   kgc = raster_kgc(sf1[[geom]])
   sum_ras = summarize_raster(kgc)
@@ -54,7 +90,7 @@ eval_habitat = function(dsn) {
 
 split_iucn_shp = function(dsn) {
   features = read_iucn_features(dsn)
-  path_components = distinct_species_iucn(features)
+  path_components = distinct_iucn_species(features)
   relpaths = path_components |>
     reduce(file.path) |>
     stringr::str_replace(" +", "_")
@@ -67,9 +103,9 @@ split_iucn_shp = function(dsn) {
       dplyr::filter(!gpkg_exists)
     msg = paste(utils::capture.output(missing_gpkg), collapse = "\n")
     message("Writing ", msg)
-    obj = read_sf_cache(dsn)
+    iucn_sf = read_sf_cache(dsn)
     wrote = rowwise_mcmap_chr(missing_gpkg, \(row) {
-      filtered = dplyr::filter(obj, .data$sci_name == row$sci_name)
+      filtered = dplyr::filter(iucn_sf, .data$sci_name == row$sci_name)
       fs::dir_create(fs::path_dir(row$gpkg), recurse = TRUE)
       sf::write_sf(filtered, row$gpkg)
       row$gpkg
@@ -88,7 +124,7 @@ read_iucn_features = function(dsn, force = FALSE) {
   feature_file = features_path(dsn)
   if (!fs::file_exists(feature_file) || force) {
     iucn_sf = read_sf_cache(dsn)
-    out = extract_features(iucn_sf)
+    out = drop_geometry(iucn_sf)
     fs::dir_create(fs::path_dir(feature_file), recurse = TRUE)
     readr::write_tsv(out, feature_file, na = "")
     message("Wrote ", feature_file)
@@ -101,23 +137,23 @@ features_path = function(dsn) {
   cache_dir() / "iucn" / "features" / file_name
 }
 
-extract_features = function(x) {
-  sf::st_set_geometry(x, NULL) |>
-    dplyr::mutate(dplyr::across(dplyr::where(is.character), sanitize_column))
-}
-
-union_cache = function(dsn) {
+summarize_iucn_union_cache = function(dsn) {
   cache_file = fs::path(fs::path_dir(dsn), "union.gpkg")
   if (fs::file_exists(cache_file)) {
     sf::read_sf(cache_file)
   } else {
+    t_start = Sys.time()
     obj = sf::read_sf(dsn)
-    obj = summarize_union(obj)
-    sf::write_sf(obj, cache_file)
+    obj = summarize_iucn_union(obj)
+    t_end = Sys.time()
+    if (t_end - t_start > 3.0) {
+      sf::write_sf(obj, cache_file)
+    }
+    obj
   }
 }
 
-summarize_union = function(x) {
+summarize_iucn_union = function(x) {
   geom = attr(x, "sf_column")
   if (nrow(x) > 1L) {
     dplyr::summarize(
@@ -131,7 +167,7 @@ summarize_union = function(x) {
   }
 }
 
-distinct_species_iucn = function(features) {
+distinct_iucn_species = function(features, ...) {
   dplyr::distinct(
     features,
     .data$kingdom,
@@ -140,7 +176,8 @@ distinct_species_iucn = function(features) {
     .data$order_,
     .data$family,
     .data$genus,
-    .data$sci_name
+    .data$sci_name,
+    ...
   )
 }
 

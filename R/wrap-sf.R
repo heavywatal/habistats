@@ -2,6 +2,11 @@ read_sf_cache = function(dsn, ...) {
   call_cache(sf::read_sf, dsn, ...)
 }
 
+drop_geometry = function(x) {
+  y = sf::st_set_geometry(x, NULL)
+  dplyr::mutate(y, dplyr::across(dplyr::where(is.character), sanitize_column))
+}
+
 try_s2_area = function(x) {
   try_s2(x, sf::st_area)
 }
