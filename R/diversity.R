@@ -12,7 +12,7 @@ summarize_raster = function(ras) {
 
 summarize_count = function(cnt) {
   data.frame(
-    pixels = sum(cnt),
+    abundance = sum(cnt),
     richness = length(cnt[cnt > 0L]),
     idx_shannon = tabula::index_shannon(cnt),
     idx_simpson = tabula::index_simpson(cnt),
