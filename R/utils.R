@@ -11,11 +11,11 @@ cache_dir = function() {
 
 call_cache = function(.f, .key, ...) {
   envir = cache_env()
-  if (!exists(.key, envir = envir)) {
+  if (!exists(.key, envir)) {
     value = .f(.key, ...)
-    assign(.key, value, envir = envir)
+    assign(.key, value, envir)
   }
-  get(.key, envir = envir)
+  get(.key, envir)
 }
 
 cache_env = function() {

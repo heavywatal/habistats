@@ -18,3 +18,14 @@ test_that("cache_dir works", {
     expect_identical(cache_dir(), fs::path(tools::R_user_dir("habistats", "cache")))
   )
 })
+
+test_that("call_cache works", {
+  if (exists("hello", cache_env())) {
+    rm("hello", envir = cache_env())
+  }
+  expect_output(call_cache(print, "hello"), "hello") |>
+    expect_identical("hello")
+  expect_silent(call_cache(print, "hello")) |>
+    expect_identical("hello")
+  rm("hello", envir = cache_env())
+})
