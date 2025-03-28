@@ -29,10 +29,10 @@ scale_fill_kgc(...)
 \examples{
 library(ggplot2)
 geo_jp = rnaturalearth::ne_countries(country = "Japan")
-kgc_jp = raster_kgc(geo_jp) |> print()
-ggplot() +
+kgc_jp = habistats::raster_kgc(geo_jp) |> print()
+ggplot(geo_jp) +
   stars::geom_stars(data = kgc_jp) +
+  geom_sf(linewidth = 1, color = "#00000088", fill = NA) +
   scale_fill_kgc(na.value = "transparent") +
-  coord_fixed() +
   theme_minimal()
 }

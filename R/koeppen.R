@@ -6,11 +6,11 @@
 #' @examples
 #' library(ggplot2)
 #' geo_jp = rnaturalearth::ne_countries(country = "Japan")
-#' kgc_jp = raster_kgc(geo_jp) |> print()
-#' ggplot() +
+#' kgc_jp = habistats::raster_kgc(geo_jp) |> print()
+#' ggplot(geo_jp) +
 #'   stars::geom_stars(data = kgc_jp) +
+#'   geom_sf(linewidth = 1, color = "#00000088", fill = NA) +
 #'   scale_fill_kgc(na.value = "transparent") +
-#'   coord_fixed() +
 #'   theme_minimal()
 #' @description
 #' [`raster_kgc()`] returns the KGC raster masked by a given polygon.
@@ -45,13 +45,6 @@ scale_fill_kgc = function(...) {
     values = climate_colors,
     ...
   )
-}
-
-augment_raster = function(x, na.rm = FALSE) {
-  res = as.data.frame(x)
-  class(res) = c("tbl_df", "tbl", "data.frame")
-  names(res)[3L] = "climate"
-  res
 }
 
 .ignore_unused_imports = function() {
