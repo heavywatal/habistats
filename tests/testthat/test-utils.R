@@ -1,3 +1,11 @@
+test_that("slice_max_cum works", {
+  x = data.frame(a = 1:6)
+  expect_identical(slice_max_cum(x, a, 1), dplyr::arrange(x, dplyr::desc(a)))
+  expect_identical(slice_max_cum(x, a, 0.95), data.frame(a = seq.int(6L, 2L)))
+  expect_identical(slice_max_cum(x, a, 1e-9), data.frame(a = 6L))
+  expect_identical(slice_max_cum(x, a, 0), data.frame(a = integer(0L)))
+})
+
 test_that("sanitize_column works", {
   expect_identical(sanitize_column(" hello\n world\n"), "hello; world")
 })

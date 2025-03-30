@@ -7,6 +7,23 @@ drop_geometry = function(x) {
   dplyr::mutate(y, dplyr::across(dplyr::where(is.character), sanitize_column))
 }
 
+remove_minor_polygons = function(x, p = 0.95) {
+  len = length(x[[1L]])
+  if (len > 1L) {
+    polygons = sf::st_cast(x, "POLYGON")
+    d = data.frame(
+      idx = seq_len(len),
+      area = as.numeric(sf::st_area(polygons))
+    )
+    d = slice_max_cum(d, "area", p)
+    x = polygons[d$idx]
+    if (length(x) > 1L) {
+      x = sf::st_combine(x)
+    }
+  }
+  x
+}
+
 try_s2_area = function(x) {
   try_s2(x, sf::st_area)
 }
