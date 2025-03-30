@@ -7,17 +7,19 @@
 \alias{iucn_species_gpkg}
 \title{Read and process IUCN Spatial Data}
 \usage{
-iucn_spatial_features(iucn_source = NULL)
+iucn_spatial_features(iucn_source = NULL, overwrite = FALSE)
 
 iucn_spatial_species(iucn_source = NULL)
 
 evaluate_iucn_range(sci_name, iucn_source = NULL)
 
-iucn_species_gpkg(iucn_source = NULL)
+iucn_species_gpkg(iucn_source = NULL, overwrite = FALSE)
 }
 \arguments{
 \item{iucn_source}{Path to the directory containing IUCN shape files.
 \code{getOption("habistats.iucn_source")} is used if \code{NULL} is given (default).}
+
+\item{overwrite}{Whether to overwrite existing cache files.}
 
 \item{sci_name}{A character vector of species names.}
 }

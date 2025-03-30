@@ -12,13 +12,14 @@
 #' This is useful for quick skimming of the whole dataset.
 #' @param iucn_source Path to the directory containing IUCN shape files.
 #' `getOption("habistats.iucn_source")` is used if `NULL` is given (default).
+#' @param overwrite Whether to overwrite existing cache files.
 #' @rdname iucn
 #' @export
-iucn_spatial_features = function(iucn_source = NULL) {
+iucn_spatial_features = function(iucn_source = NULL, overwrite = FALSE) {
   if (is.null(iucn_source)) {
     iucn_source = iucn_source_path()
   }
-  call_cache(read_iucn_features_recursive, iucn_source)
+  call_cache(\(x) read_iucn_features_recursive(x, overwrite = overwrite), iucn_source)
 }
 
 #' @description
@@ -63,12 +64,12 @@ evaluate_iucn_range = function(sci_name, iucn_source = NULL) {
 #' in downstream analysis, and avoids the need to read large shape files again.
 #' @rdname iucn
 #' @export
-iucn_species_gpkg = function(iucn_source = NULL) {
+iucn_species_gpkg = function(iucn_source = NULL, overwrite = FALSE) {
   if (is.null(iucn_source)) {
     iucn_source = iucn_source_path()
   }
   shapes = fs::dir_ls(iucn_source, recurse = TRUE, type = "file", glob = "*.shp")
-  dfs = lapply(shapes, split_iucn_shp)
+  dfs = lapply(shapes, \(x) split_iucn_shp(x, overwrite = overwrite))
   purrr::list_rbind(dfs)
 }
 
@@ -88,14 +89,14 @@ summarize_iucn_union_kgc = function(dsn) {
     dplyr::bind_cols(sum_ras)
 }
 
-split_iucn_shp = function(dsn) {
+split_iucn_shp = function(dsn, overwrite = FALSE) {
   features = read_iucn_features(dsn)
   path_components = distinct_iucn_species(features)
   relpaths = path_components |>
     reduce(file.path) |>
     stringr::str_replace(" +", "_")
   abspaths = fs::path(cache_dir(), "iucn", relpaths, "source.gpkg")
-  gpkg_exists = fs::file_exists(abspaths)
+  gpkg_exists = fs::file_exists(abspaths) & !overwrite
   if (!all(gpkg_exists)) {
     missing_gpkg = path_components |>
       dplyr::select("sci_name") |>
@@ -114,15 +115,15 @@ split_iucn_shp = function(dsn) {
   dplyr::mutate(path_components, .data$sci_name, source = abspaths, .keep = "used")
 }
 
-read_iucn_features_recursive = function(path) {
+read_iucn_features_recursive = function(path, overwrite = FALSE) {
   shapes = fs::dir_ls(path, recurse = TRUE, type = "file", glob = "*.shp")
-  dfs = parallel::mclapply(shapes, read_iucn_features)
+  dfs = parallel::mclapply(shapes, \(x) read_iucn_features(x, overwrite = overwrite))
   purrr::list_rbind(dfs)
 }
 
-read_iucn_features = function(dsn, force = FALSE) {
+read_iucn_features = function(dsn, overwrite = FALSE) {
   feature_file = features_path(dsn)
-  if (!fs::file_exists(feature_file) || force) {
+  if (!fs::file_exists(feature_file) || overwrite) {
     iucn_sf = read_sf_cache(dsn)
     out = drop_geometry(iucn_sf)
     fs::dir_create(fs::path_dir(feature_file), recurse = TRUE)
