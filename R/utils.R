@@ -32,7 +32,10 @@ reduce = function(.x, .f) do.call(.f, .x)
 #'
 #' habistats::cache_dir()
 #'
-#' fs::dir_info(habistats::cache_dir(), recurse = TRUE)$size |> sum()
+#' \dontrun{
+#'   # Calculate the size
+#'   fs::dir_info(habistats::cache_dir(), recurse = TRUE)$size |> sum()
+#' }
 #'
 #' options(old) # reset for this example, not needed in real use
 cache_dir = function() {
