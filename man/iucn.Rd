@@ -2,43 +2,35 @@
 % Please edit documentation in R/iucn.R
 \name{iucn_spatial_features}
 \alias{iucn_spatial_features}
-\alias{iucn_spatial_species}
-\alias{evaluate_iucn_range}
-\alias{iucn_species_gpkg}
+\alias{iucn_source_path}
 \title{Read and process IUCN Spatial Data}
 \usage{
 iucn_spatial_features(iucn_source = NULL, overwrite = FALSE)
 
-iucn_spatial_species(iucn_source = NULL)
-
-evaluate_iucn_range(sci_name, iucn_source = NULL)
-
-iucn_species_gpkg(iucn_source = NULL, overwrite = FALSE)
+iucn_source_path()
 }
 \arguments{
 \item{iucn_source}{Path to the directory containing IUCN shape files.
-\code{getOption("habistats.iucn_source")} is used if \code{NULL} is given (default).}
+\code{iucn_source_path()} is used if \code{NULL} is given (default).}
 
 \item{overwrite}{Whether to overwrite existing cache files.}
+}
+\value{
+\code{iucn_spatial_features()} returns a data.frame with the feature columns.
 
-\item{sci_name}{A character vector of species names.}
+\code{iucn_source_path()} returns a path read from the option.
 }
 \description{
-The IUCN Spatial Data is a large collection of shape files, and these functions
-provide an efficient way to read and process them.
+The IUCN Spatial Data is a large collection of shape files,
+and this package provides efficient ways to read and process them.
 It may take a while to run them for the first time,
 but subsequent runs will be very quick because the results are cached.
 
-\code{\link[=iucn_spatial_features]{iucn_spatial_features()}} returns a data.frame without the geometry column.
+\code{iucn_spatial_features()} reads the IUCN shape files and drops the geometry column.
 This is useful for quick skimming of the whole dataset.
-
-\code{\link[=iucn_spatial_species]{iucn_spatial_species()}} is a species-level summary of \code{\link[=iucn_spatial_features]{iucn_spatial_features()}}.
-
-\code{\link[=evaluate_iucn_range]{evaluate_iucn_range()}} evaluates the range of each species in the IUCN dataset.
-
-\code{\link[=iucn_species_gpkg]{iucn_species_gpkg()}} splits IUCN shape files into separate gpkg files
-for each species, and returns their paths. This allows for parallel processing
-in downstream analysis, and avoids the need to read large shape files again.
+Set \code{options(habistats.iucn_source = "~/path/to/your/data")} to specify
+the path to the directory containing IUCN shape files,
+and use \code{iucn_source_path()} to check it.
 }
 \seealso{
 \url{https://www.iucnredlist.org/resources/spatial-data-download}

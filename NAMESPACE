@@ -2,6 +2,7 @@
 
 export(count_values)
 export(evaluate_iucn_range)
+export(iucn_source_path)
 export(iucn_spatial_features)
 export(iucn_spatial_species)
 export(iucn_species_gpkg)
