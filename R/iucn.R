@@ -31,7 +31,8 @@ iucn_spatial_features = function(iucn_source = NULL, overwrite = FALSE) {
 #' @rdname iucn
 #' @export
 iucn_source_path = function() {
-  fs::path(getOption("habistats.iucn_source", "~/db/iucnredlist.org"))
+  extdata = system.file("extdata", "iucn_source", package = "habistats")
+  fs::path(getOption("habistats.iucn_source", extdata))
 }
 
 read_iucn_features_recursive = function(path, overwrite = FALSE) {
