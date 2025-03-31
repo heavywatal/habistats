@@ -10,3 +10,27 @@ test_that("iucn_source_path works", {
     expect_identical(iucn_source_path(), extdata)
   )
 })
+
+test_that("iucn_spatial_features works", {
+  withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example"))
+  iucn_spatial_features(overwrite = TRUE) |>
+    expect_s3_class("data.frame")
+  iucn_spatial_features(overwrite = FALSE) |>
+    expect_s3_class("data.frame")
+})
+
+test_that("iucn_spatial_species works", {
+  withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example"))
+  iucn_spatial_species() |>
+    expect_s3_class("data.frame")
+})
+
+test_that("iucn_species_gpkg works", {
+  withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example", mc.cores = 1L))
+  iucn_species_gpkg(overwrite = TRUE) |>
+    expect_s3_class("data.frame")
+  gpkgs = iucn_species_gpkg() |>
+    expect_s3_class("data.frame")
+  evaluate_iucn_range(gpkgs$source) |>
+    expect_s3_class("data.frame")
+})
