@@ -8,9 +8,8 @@
 #'
 #' `iucn_spatial_features()` reads the IUCN shape files and drops the geometry column.
 #' This is useful for quick skimming of the whole dataset.
-#' Set `options(habistats.iucn_source = "~/path/to/your/data")` to specify
-#' the path to the directory containing IUCN shape files,
-#' and use `iucn_source_path()` to check it.
+#' Set `habistats.iucn_source` option to specify the path to the directory
+#' containing IUCN shape files, and use `iucn_source_path()` to check it.
 #'
 #' @seealso <https://www.iucnredlist.org/resources/spatial-data-download>
 #'
@@ -20,6 +19,18 @@
 #' @returns `iucn_spatial_features()` returns a data.frame with the feature columns.
 #' @rdname iucn
 #' @export
+#' @examples
+#' \dontrun{
+#' options(habistats.iucn_source = "path/to/your/data")
+#' habistats::iucn_source_path()
+#' }
+#' old = options(habistats.cache_dir = "~/.cache/habistats-example")
+#'
+#' habistats::cache_dir()
+#'
+#' habistats::iucn_spatial_features()
+#'
+#' options(old) # reset for this example, not needed in real use
 iucn_spatial_features = function(iucn_source = NULL, overwrite = FALSE) {
   if (is.null(iucn_source)) {
     iucn_source = iucn_source_path()

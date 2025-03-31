@@ -22,10 +22,25 @@ iucn_species_gpkg(iucn_source = NULL, overwrite = FALSE)
 \code{"sci_name"} and \code{"source"}, to be used for \code{\link[=evaluate_iucn_range]{evaluate_iucn_range()}}.
 }
 \description{
-\code{\link[=iucn_species_gpkg]{iucn_species_gpkg()}} splits IUCN shape files into separate gpkg files
+\code{iucn_species_gpkg()} splits IUCN shape files into separate gpkg files
 for each species, and returns their paths. This allows for parallel processing
 in downstream analysis, and avoids the need to read large shape files again.
 
-Use \code{\link[=iucn_spatial_features]{iucn_spatial_features()}} for quick skimming of the whole dataset,
-and determine which species to analyze.
+Use \code{iucn_spatial_species()} and \code{\link[=iucn_spatial_features]{iucn_spatial_features()}}
+for quick skimming of the whole dataset, and determine which species to analyze.
+}
+\examples{
+\dontrun{
+options(habistats.iucn_source = "path/to/your/data")
+habistats::iucn_source_path()
+}
+old = options(habistats.cache_dir = "~/.cache/habistats-example")
+
+habistats::cache_dir()
+
+habistats::iucn_spatial_species()
+
+habistats::iucn_species_gpkg()
+
+options(old) # reset for this example, not needed in real use
 }

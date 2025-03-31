@@ -12,6 +12,29 @@ sanitize_column = function(x) {
 
 reduce = function(.x, .f) do.call(.f, .x)
 
+#' Utilities for caching
+#'
+#' Some expensive operations are cached to avoid recomputing them.
+#' Intermediate results are stored in a cache directory.
+#' Users can set it via `habistats.cache_dir` option.
+#' The default is set with [tools::R_user_dir()].
+#'
+#' General recommendation is to set it to a persistent directory with easy access,
+#' such as `~/.cache/habistats`, not a temporary directory like [tempdir()].
+#' If you are working on a shared machine with other users,
+#' setting the same cache directory will allow you to share the cache.
+#'
+#' @returns `cache_dir()` returns the path to the cache directory.
+#' @rdname cache-dir
+#' @export
+#' @examples
+#' old = options(habistats.cache_dir = "~/.cache/habistats-example")
+#'
+#' habistats::cache_dir()
+#'
+#' fs::dir_info(habistats::cache_dir(), recurse = TRUE)$size |> sum()
+#'
+#' options(old) # reset for this example, not needed in real use
 cache_dir = function() {
   fs::path(getOption("habistats.cache_dir", tools::R_user_dir("habistats", "cache")))
 }

@@ -19,3 +19,15 @@ evaluate_iucn_range(sci_name, iucn_source = NULL)
 The geometry column of IUCN Spatial Data is evaluated in several ways.
 Currently, perimeter, area, and some other features are calculated.
 }
+\examples{
+\dontrun{
+options(habistats.iucn_source = "path/to/your/data")
+habistats::iucn_source_path()
+}
+old = options(habistats.cache_dir = "~/.cache/habistats-example")
+
+sn = c("Strato arctica", "Diva satanica")
+habistats::evaluate_iucn_range(sn)
+
+options(old) # reset for this example, not needed in real use
+}

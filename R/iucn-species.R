@@ -1,16 +1,31 @@
 #' Species-level summary of IUCN Spatial Data
 #'
 #' @description
-#' [`iucn_species_gpkg()`] splits IUCN shape files into separate gpkg files
+#' `iucn_species_gpkg()` splits IUCN shape files into separate gpkg files
 #' for each species, and returns their paths. This allows for parallel processing
 #' in downstream analysis, and avoids the need to read large shape files again.
 #'
-#' Use [`iucn_spatial_features()`] for quick skimming of the whole dataset,
-#' and determine which species to analyze.
+#' Use `iucn_spatial_species()` and [iucn_spatial_features()]
+#' for quick skimming of the whole dataset, and determine which species to analyze.
+#'
 #' @inheritParams iucn_spatial_features
 #' @returns `iucn_spatial_species()` returns a data.frame extracted from [iucn_spatial_features()].
 #' @rdname iucn-species
 #' @export
+#' @examples
+#' \dontrun{
+#' options(habistats.iucn_source = "path/to/your/data")
+#' habistats::iucn_source_path()
+#' }
+#' old = options(habistats.cache_dir = "~/.cache/habistats-example")
+#'
+#' habistats::cache_dir()
+#'
+#' habistats::iucn_spatial_species()
+#'
+#' habistats::iucn_species_gpkg()
+#'
+#' options(old) # reset for this example, not needed in real use
 iucn_spatial_species = function(iucn_source = NULL) {
   features = iucn_spatial_features(iucn_source)
   out = distinct_iucn_species(
@@ -56,8 +71,7 @@ split_iucn_shp = function(dsn, overwrite = FALSE) {
       dplyr::select("sci_name") |>
       dplyr::mutate(gpkg = abspaths) |>
       dplyr::filter(!gpkg_exists)
-    msg = paste(utils::capture.output(missing_gpkg), collapse = "\n")
-    message("Writing ", msg)
+    message("Writing gpkg for ", toString(missing_gpkg$sci_name))
     iucn_sf = read_sf_cache(dsn)
     wrote = rowwise_mcmap_chr(missing_gpkg, \(row) {
       filtered = dplyr::filter(iucn_sf, .data$sci_name == row$sci_name)
