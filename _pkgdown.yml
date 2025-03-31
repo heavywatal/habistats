@@ -8,6 +8,9 @@ reference:
 - title: Functions for raster data
   contents:
   - raster_kgc
+- title: Functions for quantification
+  contents:
+  - matches("quantify")
   - summarize_raster
 - title: Utilities
   contents:

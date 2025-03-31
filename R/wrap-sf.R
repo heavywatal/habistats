@@ -2,6 +2,25 @@ read_sf_cache = function(dsn, ...) {
   call_cache(sf::read_sf, dsn, ...)
 }
 
+read_sf_union_geometry = function(dsn) {
+  cache_file = fs::path(fs::path_dir(dsn), "union.gpkg")
+  if (fs::file_exists(cache_file)) {
+    sf::read_sf(cache_file)
+  } else {
+    t_start = Sys.time()
+    obj = sf::read_sf(dsn)
+    geom = sf::st_geometry(obj)
+    if (length(geom) > 1L) {
+      geom = try_s2_union(geom)
+    }
+    t_end = Sys.time()
+    if (t_end - t_start > 3.0 && startsWith(dsn, cache_dir())) {
+      sf::write_sf(geom, cache_file)
+    }
+    geom
+  }
+}
+
 drop_geometry = function(x) {
   y = sf::st_set_geometry(x, NULL)
   dplyr::mutate(y, dplyr::across(dplyr::where(is.character), sanitize_column))
