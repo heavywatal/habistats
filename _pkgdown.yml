@@ -1,4 +1,16 @@
 url: https://heavywatal.github.io/habistats/
 template:
   bootstrap: 5
-
+reference:
+- title: Functions for IUCN data
+  contents:
+  - matches("iucn")
+- title: Functions for raster data
+  contents:
+  - raster_kgc
+  - summarize_raster
+- title: Utilities
+  contents:
+  - cache_dir
+  - lmap_lst
+  - rowwise_map
