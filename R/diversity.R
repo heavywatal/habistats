@@ -1,7 +1,6 @@
-index_brillouin = function(cnt) {
-  values = get_values_na_omit(ras)
-  cnt = table_int(values)
-  tabula::index_brillouin(cnt)
+index_brillouin = function(ras) {
+  cnt = table_raster(ras)
+  purrr::map_dbl(cnt, tabula::index_brillouin)
 }
 
 summarize_count = function(cnt) {
@@ -14,7 +13,10 @@ summarize_count = function(cnt) {
   )
 }
 
-table_int = function(x) {
-  tab = table(x, dnn = NULL)
-  as.integer(tab)
+table_int = function(x, ..., use.names = FALSE) {
+  if (isFALSE(use.names) && (is.factor(x) || is.numeric(x))) {
+    tabulate(x, ...)
+  } else {
+    c(table(x, ..., dnn = NULL))
+  }
 }

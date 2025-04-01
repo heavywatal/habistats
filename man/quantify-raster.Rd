@@ -2,21 +2,33 @@
 % Please edit documentation in R/quantify-raster.R
 \name{quantify_raster}
 \alias{quantify_raster}
-\alias{get_values_na_omit}
+\alias{table_raster}
 \title{Qantify spatial data in raster format}
 \usage{
 quantify_raster(ras)
 
-get_values_na_omit(ras)
+table_raster(ras, ..., use.names = FALSE)
 }
 \arguments{
 \item{ras}{A \code{stars} object.}
+
+\item{...}{Additional arguments passed to \code{\link[=tabulate]{tabulate()}} or \code{\link[=table]{table()}}.}
+
+\item{use.names}{A logical. If \code{TRUE}, the levels in the input are preserved
+as names of the output.}
 }
 \value{
 \code{quantify_raster()} returns a data.frame.
 
-\code{count_values()} returns an integer vector.
+\code{table_raster()} returns a list of integer vectors.
 }
 \description{
-\code{quantify_raster()} calculates various diversity indices from a raster layer.
+\code{quantify_raster()} calculates various diversity indices from raster layers.
+\code{table_raster()} counts the occurrences.
+}
+\examples{
+ras = raster_kgc()
+quantify_raster(ras)
+
+table_raster(ras, use.names = TRUE)
 }
