@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# habistats
+# habistats: Habitat Statistics
 
 <!-- badges: start -->
 
@@ -14,7 +14,12 @@ status](https://www.r-pkg.org/badges/version/habistats)](https://CRAN.R-project.
 coverage](https://codecov.io/gh/heavywatal/habistats/graph/badge.svg)](https://app.codecov.io/gh/heavywatal/habistats)
 <!-- badges: end -->
 
-The goal of habistats is to …
+Summarize and visualize the statistics of spatial data. Ecology and
+evolutionary biology are the main targets of this package, and utilites
+to handle IUCN Red List Spatial Data and Köppen-Geiger Climate
+Classification are provided. But the core part of the package is
+data-agnostic, and can be used with any spatial data, even if they are
+not related to habitat or biology.
 
 ## Installation
 

@@ -4,9 +4,9 @@
 \name{habistats-package}
 \alias{habistats}
 \alias{habistats-package}
-\title{habistats: What the Package Does (One Line, Title Case)}
+\title{habistats: Habitat Statistics}
 \description{
-What the package does (one paragraph).
+Summarize and visualize the statistics of spatial data. Ecology and evolutionary biology are the main targets of this package, and utilites to handle IUCN Red List Spatial Data and Köppen-Geiger Climate Classification are provided. But the core part of the package is data-agnostic, and can be used with any spatial data, even if they are not related to habitat or biology.
 }
 \seealso{
 Useful links:
@@ -20,9 +20,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Watal M. Iwasaki \email{heavywatal@gmail.com} (\href{https://orcid.org/0000-0002-4718-7605}{ORCID})
 
-Other contributors:
+Authors:
 \itemize{
-  \item Fuku Sakamoto \email{fukusakamoto29@gmail.com} (\href{https://orcid.org/0009-0009-8531-5303}{ORCID}) [contributor]
+  \item Fuku Sakamoto \email{fukusakamoto29@gmail.com} (\href{https://orcid.org/0009-0009-8531-5303}{ORCID})
 }
 
 }
