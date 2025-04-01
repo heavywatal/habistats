@@ -23,8 +23,16 @@ scale_fill_kgc(...)
 
 \item{...}{passed to \code{\link[ggplot2:scale_manual]{ggplot2::scale_fill_manual()}}.}
 }
+\value{
+\code{raster_kgc()} returns a \code{stars} object.
+
+\code{scale_color_kgc()} and \code{scale_fill_kgc()} return a ggplot2 scale.
+}
 \description{
-\code{\link[=raster_kgc]{raster_kgc()}} returns the KGC raster masked by a given polygon.
+\code{raster_kgc()} gives easy access to the Köppen-Geiger climate classification
+raster data. It can be cropped by a given polygon.
+\code{scale_color_kgc()} and \code{scale_fill_kgc()} are ggplot2 color scales
+to be used with the KGC raster.
 }
 \examples{
 library(ggplot2)

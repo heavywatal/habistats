@@ -1,8 +1,17 @@
 #' Köppen-Geiger Climate Classification
 #'
+#' `raster_kgc()` gives easy access to the Köppen-Geiger climate classification
+#' raster data. It can be cropped by a given polygon.
+#' `scale_color_kgc()` and `scale_fill_kgc()` are ggplot2 color scales
+#' to be used with the KGC raster.
+#'
 #' @format A `stars` object with 2 dimensions and 1 attribute.
 #' @source <https://koeppen-geiger.vu-wien.ac.at>
 #'
+#' @param mask sf or sfc object.
+#' @returns `raster_kgc()` returns a `stars` object.
+#' @rdname koeppen
+#' @export
 #' @examples
 #' library(ggplot2)
 #' geo_jp = rnaturalearth::ne_countries(country = "Japan")
@@ -12,11 +21,6 @@
 #'   geom_sf(linewidth = 1, color = "#00000088", fill = NA) +
 #'   scale_fill_kgc(na.value = "transparent") +
 #'   theme_minimal()
-#' @description
-#' [`raster_kgc()`] returns the KGC raster masked by a given polygon.
-#' @param mask sf or sfc object.
-#' @rdname koeppen
-#' @export
 raster_kgc = function(mask = NULL) {
   if (is.null(mask)) {
     kg5m
@@ -27,6 +31,7 @@ raster_kgc = function(mask = NULL) {
 }
 
 #' @param ... passed to [ggplot2::scale_fill_manual()].
+#' @returns `scale_color_kgc()` and `scale_fill_kgc()` return a ggplot2 scale.
 #' @rdname koeppen
 #' @export
 scale_color_kgc = function(...) {
@@ -45,8 +50,4 @@ scale_fill_kgc = function(...) {
     values = climate_colors,
     ...
   )
-}
-
-.ignore_unused_imports = function() {
-  stars::read_stars
 }
