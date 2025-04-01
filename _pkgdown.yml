@@ -11,7 +11,6 @@ reference:
 - title: Functions for quantification
   contents:
   - matches("quantify")
-  - summarize_raster
 - title: Utilities
   contents:
   - cache_dir

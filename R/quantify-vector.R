@@ -18,7 +18,7 @@ quantify_vector_kgc = function(geom) {
   }
   sum_vec = quantify_vector(geom)
   kgc = raster_kgc(geom)
-  sum_ras = summarize_raster(kgc)
+  sum_ras = quantify_raster(kgc)
   dplyr::bind_cols(sum_vec, sum_ras)
 }
 
