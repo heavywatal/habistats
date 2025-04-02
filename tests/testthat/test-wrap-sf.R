@@ -15,3 +15,9 @@ test_that("remove_minor_polygon works", {
   expect_length(remove_minor_polygons(geo_jp, 0.8)[[1]], 2L)
   expect_length(remove_minor_polygons(geo_jp, 1e-9)[[1]], 1L)
 })
+
+test_that("remove_minor_polygon works", {
+  geo_jp = rnaturalearth::ne_countries(country = "Japan") |> sf::st_geometry()
+  msg = "although coordinates are longitude/latitude"
+  expect_message(with_s2_false(sf::st_union(geo_jp)), msg)
+})

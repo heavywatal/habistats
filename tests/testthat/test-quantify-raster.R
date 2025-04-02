@@ -22,3 +22,16 @@ test_that("quantify_raster works", {
   expect_s3_class(d[[1L]], "data.frame")
   expect_identical(nrow(d[[1L]]), 1L)
 })
+
+test_that("quantify_raster works for 3D", {
+  .dim = c(x = 5L, y = 4L, band = 3L)
+  n = prod(.dim)
+  m = seq_len(n) |> as.factor()
+  dim(m) = .dim
+  ras = stars::st_as_stars(m)
+  lst = quantify_raster(ras) |>
+    expect_type("list") |>
+    expect_length(1L)
+  expect_s3_class(lst[[1L]], "data.frame")
+  expect_identical(nrow(lst[[1L]]), .dim[3L], ignore_attr = TRUE)
+})
