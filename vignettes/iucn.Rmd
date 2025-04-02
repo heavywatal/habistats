@@ -1,0 +1,94 @@
+---
+title: "Using IUCN Spatial Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using IUCN Spatial Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, knitr}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Install and load packages
+
+```{r, library}
+# pak::pkg_install("heavywatal/habistats")
+library(habistats)
+```
+
+## Set options
+
+Directory containing [IUCN shape files](https://www.iucnredlist.org/resources/spatial-data-download):
+
+```{r, options-source}
+#| eval: false
+# Set
+options(habistats.iucn_source = "path/to/your/data")
+
+# Check
+habistats::iucn_source_path()
+```
+
+You can leave this unset if you want to use the example data included in the package,
+which was randomlly generated to be similar to the IUCN data.
+
+Intermediate data files will be stored in the cache directory:
+
+```{r, options-cache}
+options(habistats.cache_dir = "~/.cache/habistats-example")
+```
+
+
+## Read IUCN shape files
+
+Non-geometry columns are extracted as a pure `data.frame`.
+It may take a while to run them for the first time,
+but subsequent runs will be very quick because the results are cached.
+
+```{r, features}
+features = habistats::iucn_spatial_features() |> print()
+
+species = habistats::iucn_spatial_species() |> print()
+```
+
+Use them to filter the species you want to evaluate.
+
+```{r, select-species}
+sn = species |>
+  dplyr::filter(phylum == "CHORDATA") |>
+  dplyr::pull(sci_name) |>
+  print()
+```
+
+
+## Preprocess shape files
+
+Split IUCN shape files into separate gpkg files for efficient processing.
+On a slow storage, it may take a while to run this even for the non-first time.
+
+```{r, split}
+species_gpkg = habistats::iucn_species_gpkg() |> print()
+```
+
+## Evaluate species ranges
+
+```{r, evaluate}
+out = species_gpkg |>
+  dplyr::filter(sci_name %in% sn) |>
+  tibble::deframe() |>
+  quantify_vector_kgc() |>
+  print()
+```
+
+You may want to save the result to a file.
+
+```{r, write}
+#| eval: false
+readr::write_tsv(out, "iucn_range.tsv.gz")
+```
