@@ -17,6 +17,8 @@ test_that("quantify_raster works", {
     expect_named(levels(m))
 
   d = quantify_raster(ras) |>
-    expect_s3_class("data.frame")
-  expect_identical(nrow(d), 1L)
+    expect_type("list") |>
+    expect_length(length(ras))
+  expect_s3_class(d[[1L]], "data.frame")
+  expect_identical(nrow(d[[1L]]), 1L)
 })

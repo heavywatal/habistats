@@ -12,8 +12,8 @@ test_that("index_brillouin works", {
   expect_identical(index_brillouin(ras + 42L), d)
 })
 
-test_that("summarize_count works", {
+test_that("summarize_counts works", {
   n = 8L
   v = seq_len(n)
-  expect_identical(summarize_count(v), summarize_count(c(0L, v, 0L)))
+  expect_identical(summarize_counts(v), summarize_counts(c(0L, v, 0L)))
 })

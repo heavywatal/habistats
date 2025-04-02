@@ -5,12 +5,15 @@
 \alias{table_raster}
 \title{Qantify spatial data in raster format}
 \usage{
-quantify_raster(ras)
+quantify_raster(ras, MARGIN = 3L)
 
 table_raster(ras, ..., use.names = FALSE)
 }
 \arguments{
 \item{ras}{A \code{stars} object.}
+
+\item{MARGIN}{A vector giving the subscripts that the function is applied over.
+See \code{\link[=apply]{apply()}}. Relevant only when \code{ras} has more than 2 dimensions.}
 
 \item{...}{Additional arguments passed to \code{\link[=tabulate]{tabulate()}} or \code{\link[=table]{table()}}.}
 
@@ -18,7 +21,8 @@ table_raster(ras, ..., use.names = FALSE)
 as names of the output.}
 }
 \value{
-\code{quantify_raster()} returns a data.frame.
+\code{quantify_raster()} returns a list of data.frames with the same length
+as the input raster.
 
 \code{table_raster()} returns a list of integer vectors.
 }

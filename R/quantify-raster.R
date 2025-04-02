@@ -4,7 +4,10 @@
 #' `table_raster()` counts the occurrences.
 #'
 #' @param ras A `stars` object.
-#' @returns `quantify_raster()` returns a data.frame.
+#' @param MARGIN A vector giving the subscripts that the function is applied over.
+#' See [apply()]. Relevant only when `ras` has more than 2 dimensions.
+#' @returns `quantify_raster()` returns a list of data.frames with the same length
+#' as the input raster.
 #' @rdname quantify-raster
 #' @export
 #' @examples
@@ -12,10 +15,12 @@
 #' quantify_raster(ras)
 #'
 #' table_raster(ras, use.names = TRUE)
-quantify_raster = function(ras) {
-  cnt = table_raster(ras)
-  rows = lapply(cnt, summarize_count)
-  purrr::list_rbind(rows)
+quantify_raster = function(ras, MARGIN = 3L) {
+  if (length(dim(ras)) > 2L) {
+    st_apply_summarize_tabulate(ras, MARGIN = MARGIN)
+  } else {
+    lapply(ras, summarize_tabulate)
+  }
 }
 
 #' @param ... Additional arguments passed to [tabulate()] or [table()].
@@ -26,4 +31,9 @@ quantify_raster = function(ras) {
 #' @export
 table_raster = function(ras, ..., use.names = FALSE) {
   lapply(ras, table_int, ..., use.names = use.names)
+}
+
+st_apply_summarize_tabulate = function(ras, MARGIN = 3L) {
+  lsts = stars::st_apply(ras, MARGIN, summarize_tabulate, simplify = FALSE, rename = FALSE)
+  lapply(lsts, purrr::list_rbind)
 }

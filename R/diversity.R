@@ -3,7 +3,11 @@ index_brillouin = function(ras) {
   purrr::map_dbl(cnt, tabula::index_brillouin)
 }
 
-summarize_count = function(cnt) {
+summarize_tabulate = function(x) {
+  summarize_counts(table_int(x))
+}
+
+summarize_counts = function(cnt) {
   data.frame(
     abundance = sum(cnt),
     richness = length(cnt[cnt > 0L]),
