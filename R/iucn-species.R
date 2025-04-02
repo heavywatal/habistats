@@ -71,7 +71,6 @@ split_iucn_shp = function(dsn, overwrite = FALSE) {
       dplyr::select("sci_name") |>
       dplyr::mutate(gpkg = abspaths) |>
       dplyr::filter(!gpkg_exists)
-    message("Writing gpkg for ", toString(missing_gpkg$sci_name))
     iucn_sf = read_sf_cache(dsn)
     wrote = rowwise_mcmap_chr(missing_gpkg, \(row) {
       filtered = dplyr::filter(iucn_sf, .data$sci_name == row$sci_name)
@@ -79,6 +78,8 @@ split_iucn_shp = function(dsn, overwrite = FALSE) {
       sf::write_sf(filtered, row$gpkg)
       row$gpkg
     })
+    size = fs::file_size(wrote) |> sum()
+    message("Wrote ", size, " in ", cache_dir() / "iucn/")
   }
   dplyr::mutate(path_components, .data$sci_name, source = abspaths, .keep = "used")
 }

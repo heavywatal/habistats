@@ -35,7 +35,7 @@ iucn_spatial_features = function(iucn_source = NULL, overwrite = FALSE) {
   if (is.null(iucn_source)) {
     iucn_source = iucn_source_path()
   }
-  call_cache(read_iucn_features_recursive, iucn_source, overwrite = overwrite)
+  read_iucn_features_recursive(iucn_source, overwrite = overwrite)
 }
 
 #' @returns `iucn_source_path()` returns a path read from the option.
