@@ -13,6 +13,12 @@
 #' geom = rnaturalearth::ne_countries(country = "Japan") |> sf::st_geometry()
 #' quantify_vector_kgc(geom)
 quantify_vector_kgc = function(geom) {
+  if (length(geom) > 1L) {
+    rows = parallel::mclapply(geom, quantify_vector_kgc)
+    out = purrr::list_rbind(rows)
+    class(out) = c("tbl_df", "tbl", "data.frame")
+    return(dplyr::mutate(out, name = names(geom), .before = 1L))
+  }
   if (is.character(geom)) {
     geom = read_sf_union_geometry(geom)
   }
