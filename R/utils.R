@@ -42,10 +42,13 @@ cache_dir = function() {
   fs::path(getOption("habistats.cache_dir", tools::R_user_dir("habistats", "cache")))
 }
 
-call_cache = function(.f, .key, ...) {
+call_cache = function(.f, .x, ...) {
+  f_quo = rlang::enquo(.f)
+  f_name = rlang::quo_text(f_quo)
+  .key = paste(f_name, .x, sep = "(")
   envir = cache_env()
   if (!exists(.key, envir)) {
-    value = .f(.key, ...)
+    value = .f(.x, ...)
     assign(.key, value, envir)
   }
   get(.key, envir)

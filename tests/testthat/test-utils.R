@@ -28,12 +28,12 @@ test_that("cache_dir works", {
 })
 
 test_that("call_cache works", {
-  if (exists("hello", cache_env())) {
-    rm("hello", envir = cache_env())
+  if (exists("print(hello", cache_env())) {
+    rm("print(hello", envir = cache_env())
   }
   expect_output(call_cache(print, "hello"), "hello") |>
     expect_identical("hello")
   expect_silent(call_cache(print, "hello")) |>
     expect_identical("hello")
-  rm("hello", envir = cache_env())
+  rm("print(hello", envir = cache_env())
 })
