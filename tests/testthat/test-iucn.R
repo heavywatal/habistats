@@ -28,7 +28,7 @@ test_that("iucn_spatial_species works", {
 })
 
 test_that("iucn_species_gpkg works", {
-  withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example", mc.cores = 1L))
+  withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example"))
   expect_message({
     gpkgs = iucn_species_gpkg(overwrite = TRUE)
   }, "Wrote")

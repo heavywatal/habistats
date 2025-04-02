@@ -72,9 +72,10 @@ split_iucn_shp = function(dsn, overwrite = FALSE) {
       dplyr::mutate(gpkg = abspaths) |>
       dplyr::filter(!gpkg_exists)
     iucn_sf = read_sf_cache(dsn)
-    wrote = rowwise_mcmap_chr(missing_gpkg, \(row) {
+    missing_dirs = fs::path_dir(missing_gpkg$gpkg) |> unique()
+    fs::dir_create(missing_dirs, recurse = TRUE)
+    wrote = rowwise_mcmap_vec(missing_gpkg, \(row) {
       filtered = dplyr::filter(iucn_sf, .data$sci_name == row$sci_name)
-      fs::dir_create(fs::path_dir(row$gpkg), recurse = TRUE)
       sf::write_sf(filtered, row$gpkg)
       row$gpkg
     })
