@@ -74,9 +74,9 @@ classification in that range cropped with <code><a href="koeppen.html">raster_kg
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">geom</span> <span class="op">=</span> <span class="fu">rnaturalearth</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html" class="external-link">ne_countries</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"Japan"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">quantify_vector_kgc</span><span class="op">(</span><span class="va">geom</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   perimeter         area abundance richness idx_shannon idx_simpson</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   6474035 404420164917      5965        6    1.024642   0.4558865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   6474035 404420164917      5814        5   0.9301313   0.4791999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   idx_brillouin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      1.021681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.927681</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
