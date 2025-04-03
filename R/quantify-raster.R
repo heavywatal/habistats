@@ -1,4 +1,4 @@
-#' Qantify spatial data in raster format
+#' Quantify spatial data in raster format
 #'
 #' `quantify_raster()` calculates various diversity indices from raster layers.
 #' `table_raster()` counts the occurrences.

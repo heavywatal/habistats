@@ -13,9 +13,12 @@ test_that("iucn_source_path works", {
 
 test_that("iucn_spatial_features works", {
   withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example"))
-  expect_message({
-    features = iucn_spatial_features(overwrite = TRUE)
-  }, "Wrote")
+  expect_message(
+    {
+      features = iucn_spatial_features(overwrite = TRUE)
+    },
+    "Wrote"
+  )
   expect_s3_class(features, "data.frame")
   iucn_spatial_features(overwrite = FALSE) |>
     expect_identical(features)
@@ -29,9 +32,12 @@ test_that("iucn_spatial_species works", {
 
 test_that("iucn_species_gpkg works", {
   withr::local_options(list(habistats.cache_dir = "~/.cache/habistats-example"))
-  expect_message({
-    gpkgs = iucn_species_gpkg(overwrite = TRUE)
-  }, "Wrote")
+  expect_message(
+    {
+      gpkgs = iucn_species_gpkg(overwrite = TRUE)
+    },
+    "Wrote"
+  )
   expect_s3_class(gpkgs, "data.frame")
   expect_identical(iucn_species_gpkg(), gpkgs)
 

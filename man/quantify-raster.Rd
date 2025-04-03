@@ -3,7 +3,7 @@
 \name{quantify_raster}
 \alias{quantify_raster}
 \alias{table_raster}
-\title{Qantify spatial data in raster format}
+\title{Quantify spatial data in raster format}
 \usage{
 quantify_raster(ras, MARGIN = 3L)
 

@@ -15,7 +15,7 @@ coverage](https://codecov.io/gh/heavywatal/habistats/graph/badge.svg)](https://a
 <!-- badges: end -->
 
 Summarize and visualize the statistics of spatial data. Ecology and
-evolutionary biology are the main targets of this package, and utilites
+evolutionary biology are the main targets of this package, and utilities
 to handle IUCN Red List Spatial Data and Köppen-Geiger Climate
 Classification are provided. But the core part of the package is
 data-agnostic, and can be used with any spatial data, even if they are

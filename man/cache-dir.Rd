@@ -27,8 +27,8 @@ old = options(habistats.cache_dir = "~/.cache/habistats-example")
 habistats::cache_dir()
 
 \dontrun{
-  # Calculate the size
-  fs::dir_info(habistats::cache_dir(), recurse = TRUE)$size |> sum()
+# Calculate the size
+fs::dir_info(habistats::cache_dir(), recurse = TRUE)$size |> sum()
 }
 
 options(old) # reset for this example, not needed in real use

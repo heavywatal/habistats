@@ -6,7 +6,7 @@
 \alias{habistats-package}
 \title{habistats: Habitat Statistics}
 \description{
-Summarize and visualize the statistics of spatial data. Ecology and evolutionary biology are the main targets of this package, and utilites to handle IUCN Red List Spatial Data and Köppen-Geiger Climate Classification are provided. But the core part of the package is data-agnostic, and can be used with any spatial data, even if they are not related to habitat or biology.
+Summarize and visualize the statistics of spatial data. Ecology and evolutionary biology are the main targets of this package, and utilities to handle IUCN Red List Spatial Data and Köppen-Geiger Climate Classification are provided. But the core part of the package is data-agnostic, and can be used with any spatial data, even if they are not related to habitat or biology.
 }
 \seealso{
 Useful links:

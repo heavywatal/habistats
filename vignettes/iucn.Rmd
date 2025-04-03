@@ -36,7 +36,7 @@ habistats::iucn_source_path()
 ```
 
 You can leave this unset if you want to use the example data included in the package,
-which was randomlly generated to be similar to the IUCN data.
+which was randomly generated to be similar to the IUCN data.
 
 Intermediate data files will be stored in the cache directory:
 
