@@ -12,14 +12,18 @@ A \code{stars} object with 2 dimensions and 1 attribute.
 \url{https://koeppen-geiger.vu-wien.ac.at}
 }
 \usage{
-raster_kgc(mask = NULL)
+raster_kgc(mask = NULL, keep_ocean = FALSE)
 
 scale_color_kgc(...)
 
 scale_fill_kgc(...)
 }
 \arguments{
-\item{mask}{sf or sfc object.}
+\item{mask}{sf or sfc object for cropping. If \code{NULL} (default), the full
+raster is returned.}
+
+\item{keep_ocean}{A logical. If \code{FALSE} (default), "Ocean" is converted to
+\code{NA} after cropping. Not relevant if \code{mask} is \code{NULL}.}
 
 \item{...}{passed to \code{\link[ggplot2:scale_manual]{ggplot2::scale_fill_manual()}}.}
 }
@@ -37,7 +41,7 @@ to be used with the KGC raster.
 \examples{
 library(ggplot2)
 geo_jp = rnaturalearth::ne_countries(country = "Japan")
-kgc_jp = habistats::raster_kgc(geo_jp) |> print()
+kgc_jp = habistats::raster_kgc(geo_jp, keep_ocean = TRUE) |> print()
 ggplot(geo_jp) +
   stars::geom_stars(data = kgc_jp) +
   geom_sf(linewidth = 1, color = "#00000088", fill = NA) +
