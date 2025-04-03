@@ -18,7 +18,7 @@ ne_geometry = function(country, scale = 110) {
   do.call(c, z)
 }
 
-create_iucn_like = function(geom, id_no, sci_name, kingdom, phylum, class, order_, family, category = "LC") {
+create_iucn_like = function(geom, id_no, sci_name, phylum, class, order_, family, category = "LC") {
   x = tibble::tibble(
     id_no = id_no,
     sci_name = sci_name,
@@ -36,7 +36,7 @@ create_iucn_like = function(geom, id_no, sci_name, kingdom, phylum, class, order
     dist_comm = NA_character_,
     generalisd = 0L,
     legend = make_legend(presence, origin, seasonal),
-    kingdom,
+    kingdom = "METALLICA",
     phylum,
     class,
     order_,
@@ -57,7 +57,6 @@ fi = create_iucn_like(
   ne_geometry("Finland"),
   19990904L,
   "Strato arctica",
-  kingdom = "ANIMALIA",
   phylum = "CHORDATA",
   class = "MAMMALIA",
   order_ = "CARNIVORA",
@@ -68,7 +67,6 @@ se = create_iucn_like(
   ne_geometry(c("Sweden", "Germany")),
   20010425L,
   "Diva satanica",
-  kingdom = "ANIMALIA",
   phylum = "CHORDATA",
   class = "AVES",
   order_ = "PASSERIFORMES",
@@ -79,7 +77,6 @@ de = create_iucn_like(
   ne_geometry("Germany"),
   19851118L,
   "Kai kiske",
-  kingdom = "PLANTAE",
   phylum = "TRACHEOPHYTA",
   class = "MAGNOLIOPSIDA",
   order_ = "CUCURBITALES",
@@ -90,7 +87,6 @@ gb = create_iucn_like(
   ne_geometry("United Kingdom"),
   19710604L,
   "Elp tarkus",
-  kingdom = "ANIMALIA",
   phylum = "CHORDATA",
   class = "MAMMALIA",
   order_ = "CINGULATA",
