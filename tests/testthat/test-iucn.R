@@ -40,7 +40,4 @@ test_that("iucn_species_gpkg works", {
   )
   expect_s3_class(gpkgs, "data.frame")
   expect_identical(iucn_species_gpkg(), gpkgs)
-
-  evaluate_iucn_range(gpkgs$source) |>
-    expect_s3_class("data.frame")
 })

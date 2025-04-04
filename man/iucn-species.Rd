@@ -19,7 +19,7 @@ iucn_species_gpkg(iucn_source = NULL, overwrite = FALSE)
 \code{iucn_spatial_species()} returns a data.frame extracted from \code{\link[=iucn_spatial_features]{iucn_spatial_features()}}.
 
 \code{iucn_species_gpkg()} returns a data.frame with two columns,
-\code{"sci_name"} and \code{"source"}, to be used for \code{\link[=evaluate_iucn_range]{evaluate_iucn_range()}}.
+\code{"sci_name"} and \code{"source"}, to be used for \code{\link[=quantify_vector_kgc]{quantify_vector_kgc()}}.
 }
 \description{
 \code{iucn_species_gpkg()} splits IUCN shape files into separate gpkg files

@@ -46,7 +46,7 @@ iucn_spatial_species = function(iucn_source = NULL) {
 }
 
 #' @returns `iucn_species_gpkg()` returns a data.frame with two columns,
-#' `"sci_name"` and `"source"`, to be used for [evaluate_iucn_range()].
+#' `"sci_name"` and `"source"`, to be used for [quantify_vector_kgc()].
 #' @rdname iucn-species
 #' @export
 iucn_species_gpkg = function(iucn_source = NULL, overwrite = FALSE) {
