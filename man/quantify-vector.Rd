@@ -2,26 +2,33 @@
 % Please edit documentation in R/quantify-vector.R
 \name{quantify_vector_kgc}
 \alias{quantify_vector_kgc}
-\alias{quantify_vector}
+\alias{measure_vector_kgc}
 \title{Quantify spatial data in vector format}
 \usage{
-quantify_vector_kgc(geom)
+quantify_vector_kgc(geom, overwrite = FALSE)
 
-quantify_vector(geom)
+measure_vector_kgc(geom, overwrite = FALSE)
 }
 \arguments{
 \item{geom}{An \code{sfc} or \code{sf} object. A path to sf-readable file is accepted.}
+
+\item{overwrite}{A logical. If \code{TRUE}, the cache is not used and overwritten.
+Relevant only when \code{geom} is a path to a file.}
 }
 \value{
-A data.frame.
+\code{quantify_vector_kgc()} returns a data.frame.
+
+\code{measure_vector_kgc()} returns a list.
 }
 \description{
-\code{quantify_vector()} calculates the basic spatial features of a vector geometry
-such as perimeter and area.
-\code{quantify_vector_kgc()}, in addition, quantifies the Köppen-Geiger climate
-classification in that range cropped with \code{\link[=raster_kgc]{raster_kgc()}}.
+\code{measure_vector_kgc()} counts the Köppen-Geiger climate classification
+in the range cropped with \code{\link[=raster_kgc]{raster_kgc()}}, and calculates the basic spatial
+features of a vector geometry such as perimeter and area.
+\code{quantify_vector_kgc()}, in addition, summarizes the counts.
 }
 \examples{
 geom = rnaturalearth::ne_countries(country = "Japan") |> sf::st_geometry()
+measure_vector_kgc(geom)
+
 quantify_vector_kgc(geom)
 }
