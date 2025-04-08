@@ -36,7 +36,6 @@ Suggests:
     rmarkdown,
     rnaturalearth,
     testthat (>= 3.0.0),
-    tibble,
     withr
 VignetteBuilder:
     knitr

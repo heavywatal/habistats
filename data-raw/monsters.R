@@ -19,7 +19,7 @@ ne_geometry = function(country, scale = 110) {
 }
 
 create_iucn_like = function(geom, id_no, sci_name, phylum, class, order_, family, category = "LC") {
-  x = tibble::tibble(
+  x = data.frame(
     id_no = id_no,
     sci_name = sci_name,
     presence = ifelse(category %in% c("EX", "EW"), 5L, 1L),
@@ -48,7 +48,8 @@ create_iucn_like = function(geom, id_no, sci_name, phylum, class, order_, family
     freshwater = "false",
     SHAPE_Leng = purrr::map_dbl(geom, sf::st_perimeter),
     SHAPE_Area = purrr::map_dbl(geom, sf::st_area),
-    geometry = geom
+    geometry = geom,
+    stringsAsFactors = FALSE
   )
   sf::st_sf(x)
 }

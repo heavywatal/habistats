@@ -81,7 +81,7 @@ species_gpkg = habistats::iucn_species_gpkg() |> print()
 ```{r, evaluate}
 out = species_gpkg |>
   dplyr::filter(sci_name %in% sn) |>
-  tibble::deframe() |>
+  dplyr::pull("source", "sci_name") |>
   quantify_vector_kgc() |>
   print()
 ```
