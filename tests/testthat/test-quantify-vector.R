@@ -13,5 +13,7 @@ test_that("measure_vector_kgc works", {
   sf::write_sf(geom, dsn)
   obj = measure_vector_kgc(dsn, overwrite = TRUE) |>
     expect_type("list")
+  json = fs::path(fs::path_dir(dsn), "kgc.json")
+  expect_true(fs::file_exists(json))
   expect_identical(measure_vector_kgc(dsn), obj)
 })
