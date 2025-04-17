@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   iucn: iucn.html
-last_built: 2025-04-06T14:25Z
+last_built: 2025-04-17T07:45Z
 urls:
   reference: https://heavywatal.github.io/habistats/reference
   article: https://heavywatal.github.io/habistats/articles
