@@ -14,9 +14,9 @@ Description: Summarize and visualize the statistics of spatial data.
     is data-agnostic, and can be used with any spatial data, even if they
     are not related to habitat or biology.
 License: MIT + file LICENSE
-URL: https://github.com/heavywatal/habistats,
-    https://heavywatal.github.io/habistats/
-BugReports: https://github.com/heavywatal/habistats/issues
+URL: https://github.com/makinohub/habistats,
+    https://makinohub.github.io/habistats/
+BugReports: https://github.com/makinohub/habistats/issues
 Depends:
     R (>= 4.4)
 Imports:

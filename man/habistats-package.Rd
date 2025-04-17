@@ -11,9 +11,9 @@ Summarize and visualize the statistics of spatial data. Ecology and evolutionary
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/heavywatal/habistats}
-  \item \url{https://heavywatal.github.io/habistats/}
-  \item Report bugs at \url{https://github.com/heavywatal/habistats/issues}
+  \item \url{https://github.com/makinohub/habistats}
+  \item \url{https://makinohub.github.io/habistats/}
+  \item Report bugs at \url{https://github.com/makinohub/habistats/issues}
 }
 
 }
