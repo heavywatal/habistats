@@ -60,29 +60,33 @@ iucn_species_gpkg = function(iucn_source = NULL, overwrite = FALSE) {
 
 split_iucn_shp = function(dsn, overwrite = FALSE) {
   features = read_iucn_features(dsn)
-  path_components = distinct_iucn_species(features)
-  relpaths = path_components |>
-    reduce(file.path) |>
-    stringr::str_replace(" +", "_")
-  abspaths = fs::path(cache_dir(), "iucn", relpaths, "source.gpkg")
-  gpkg_exists = fs::file_exists(abspaths) & !overwrite
-  if (!all(gpkg_exists)) {
-    missing_gpkg = path_components |>
-      dplyr::select("sci_name") |>
-      dplyr::mutate(gpkg = abspaths) |>
-      dplyr::filter(!gpkg_exists)
+  out = iucn_species_cache(features, "source.gpkg") |>
+    dplyr::rename(source = "path")
+  missing_gpkg = out |>
+    dplyr::filter(!fs::file_exists(.data$source) | overwrite)
+  if (nrow(missing_gpkg) > 0L) {
     iucn_sf = read_sf_cache(dsn)
-    missing_dirs = fs::path_dir(missing_gpkg$gpkg) |> unique()
+    missing_dirs = fs::path_dir(missing_gpkg$source) |> unique()
     fs::dir_create(missing_dirs, recurse = TRUE)
     wrote = rowwise_mcmap_vec(missing_gpkg, \(row) {
       filtered = dplyr::filter(iucn_sf, .data$sci_name == row$sci_name)
-      sf::write_sf(filtered, row$gpkg)
-      row$gpkg
+      sf::write_sf(filtered, row$source)
+      row$source
     })
     size = fs::file_size(wrote) |> sum()
     message("Wrote ", size, " in ", cache_dir() / "iucn/")
   }
-  dplyr::mutate(path_components, .data$sci_name, source = abspaths, .keep = "used")
+  out
+}
+
+iucn_species_cache = function(features, ...) {
+  path_components = distinct_iucn_species(features)
+  relpaths = path_components |>
+    reduce(file.path) |>
+    stringr::str_replace(" +", "_")
+  path_components |>
+    dplyr::select("sci_name") |>
+    dplyr::mutate(path = fs::path(cache_dir(), "iucn", relpaths, ...))
 }
 
 distinct_iucn_species = function(features, ...) {
