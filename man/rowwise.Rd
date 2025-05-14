@@ -52,6 +52,11 @@ rowwise_mcmap_vec(.x, .f, ...)
 
 \item{...}{Additional arguments passed to \code{\link[parallel:mclapply]{parallel::mclapply()}}.}
 }
+\value{
+A vector of the same length as the number of rows in \code{.x}.
+The suffix of the function name denotes the output type.
+\verb{*_vec()} applies \code{\link[purrr:list_simplify]{purrr::list_simplify()}} before returning.
+}
 \description{
 \verb{rowwise_*()} functions apply a function to each row of a data.frame.
 The input to the function \code{.f} is a single-row subset with the same class.
@@ -59,6 +64,20 @@ This is useful for handling subclasses of data.frame, such as \code{sf}.
 \code{base::apply(.x, 1L, .f)} cannot do this because it converts the input to a matrix.
 
 \verb{rowwise_mcmap*()} are parallelized versions of \verb{rowwise_map*()}.
+}
+\examples{
+df = data.frame(a = 1:2, b = 3:4)
+rowwise_map(df, identity)
+
+rowwise_map_lgl(df, is.data.frame)
+
+rowwise_map_int(df, ncol)
+
+rowwise_map_dbl(df, sum)
+
+rowwise_map_chr(df, toString)
+
+rowwise_map_vec(df, \(x) x$a + x$b * 1i)
 }
 \seealso{
 \code{\link[=lmap_lst]{lmap_lst()}}

@@ -8,6 +8,22 @@
 #' @param .x A data frame-like object.
 #' @param .f A function to apply to each row.
 #' @param mode Output type.
+#' @returns A vector of the same length as the number of rows in `.x`.
+#' The suffix of the function name denotes the output type.
+#' `*_vec()` applies [purrr::list_simplify()] before returning.
+#' @examples
+#' df = data.frame(a = 1:2, b = 3:4)
+#' rowwise_map(df, identity)
+#'
+#' rowwise_map_lgl(df, is.data.frame)
+#'
+#' rowwise_map_int(df, ncol)
+#'
+#' rowwise_map_dbl(df, sum)
+#'
+#' rowwise_map_chr(df, toString)
+#'
+#' rowwise_map_vec(df, \(x) x$a + x$b * 1i)
 #' @rdname rowwise
 #' @export
 rowwise_map = function(.x, .f, mode = c("list", "integer", "double", "character", "logical")) {

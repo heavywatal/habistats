@@ -48,6 +48,11 @@ mclmap_vec(.x, .f, ...)
 
 \item{...}{Additional arguments passed to \code{\link[parallel:mclapply]{parallel::mclapply()}}.}
 }
+\value{
+A vector of the same length as \code{.x}.
+The suffix of the function name denotes the output type.
+\verb{*_vec()} applies \code{\link[purrr:list_simplify]{purrr::list_simplify()}} before returning.
+}
 \description{
 \verb{lmap*()} are similar to \code{lapply()}, but they map over subset \code{.x[i]}
 instead of element \code{.x[[i]]}.
@@ -56,6 +61,20 @@ This is useful for operation on the \code{sfc} column in an \code{sf} data.frame
 \code{\link[purrr:lmap]{purrr::lmap()}} does similar things, but it forces the output to be a list.
 
 \verb{mclmap*()} are parallelized versions of \verb{lmap*()}.
+}
+\examples{
+x = list(a = 1.0, b = 2.0)
+lmap_lst(x, unlist)
+
+lmap_lgl(x, is.list)
+
+lmap_int(x, length)
+
+lmap_dbl(x, unlist)
+
+lmap_chr(x, names)
+
+lmap_vec(x, \(.x) .x[[1L]] + 2i)
 }
 \seealso{
 \code{\link[=rowwise_map]{rowwise_map()}}

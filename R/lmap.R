@@ -9,6 +9,22 @@
 #' @param .x A list.
 #' @param .f A function to apply to each subset of `.x`.
 #' @param mode Output type.
+#' @returns A vector of the same length as `.x`.
+#' The suffix of the function name denotes the output type.
+#' `*_vec()` applies [purrr::list_simplify()] before returning.
+#' @examples
+#' x = list(a = 1.0, b = 2.0)
+#' lmap_lst(x, unlist)
+#'
+#' lmap_lgl(x, is.list)
+#'
+#' lmap_int(x, length)
+#'
+#' lmap_dbl(x, unlist)
+#'
+#' lmap_chr(x, names)
+#'
+#' lmap_vec(x, \(.x) .x[[1L]] + 2i)
 #' @rdname lmap
 #' @export
 lmap_lst = function(.x, .f, mode = c("list", "integer", "double", "character", "logical")) {
