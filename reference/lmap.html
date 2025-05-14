@@ -103,10 +103,50 @@ This is useful for operation on the <code>sfc</code> column in an <code>sf</code
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A vector of the same length as <code>.x</code>.
+The suffix of the function name denotes the output type.
+<code>*_vec()</code> applies <code><a href="https://purrr.tidyverse.org/reference/list_simplify.html" class="external-link">purrr::list_simplify()</a></code> before returning.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="rowwise.html">rowwise_map()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1.0</span>, b <span class="op">=</span> <span class="fl">2.0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">lmap_lst</span><span class="op">(</span><span class="va">x</span>, <span class="va">unlist</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">lmap_lgl</span><span class="op">(</span><span class="va">x</span>, <span class="va">is.list</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    a    b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">lmap_int</span><span class="op">(</span><span class="va">x</span>, <span class="va">length</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">lmap_dbl</span><span class="op">(</span><span class="va">x</span>, <span class="va">unlist</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">lmap_chr</span><span class="op">(</span><span class="va">x</span>, <span class="va">names</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "a" "b" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">lmap_vec</span><span class="op">(</span><span class="va">x</span>, \<span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="va">.x</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fl">2i</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    a    b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1+2i 2+2i</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -116,7 +156,7 @@ This is useful for operation on the <code>sfc</code> column in an <code>sf</code
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>
