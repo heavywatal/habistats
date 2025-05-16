@@ -68,7 +68,7 @@ This is useful for handling subclasses of data.frame, such as <code>sf</code>.
 <span></span>
 <span><span class="fu">rowwise_map_chr</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">rowwise_map_vec</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span><span class="op">)</span></span>
+<span><span class="fu">rowwise_map_vec</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, .ptype <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">rowwise_mcmap</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -80,7 +80,7 @@ This is useful for handling subclasses of data.frame, such as <code>sf</code>.
 <span></span>
 <span><span class="fu">rowwise_mcmap_chr</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">rowwise_mcmap_vec</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rowwise_mcmap_vec</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span>, .ptype <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -97,6 +97,10 @@ This is useful for handling subclasses of data.frame, such as <code>sf</code>.
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
 <dd><p>Output type.</p></dd>
+
+
+<dt id="arg--ptype">.ptype<a class="anchor" aria-label="anchor" href="#arg--ptype"></a></dt>
+<dd><p>A prototype for the output vector.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
