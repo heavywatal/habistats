@@ -54,11 +54,12 @@ lmap_dbl = function(.x, .f) lmap_lst(.x, .f, "double")
 #' @export
 lmap_chr = function(.x, .f) lmap_lst(.x, .f, "character")
 
+#' @param .ptype A prototype for the output vector.
 #' @rdname lmap
 #' @export
-lmap_vec = function(.x, .f) {
+lmap_vec = function(.x, .f, .ptype = NULL) {
   out = lmap_lst(.x, .f)
-  purrr::list_simplify(out)
+  purrr::list_simplify(out, ptype = .ptype)
 }
 
 #' @description
@@ -74,34 +75,30 @@ mclmap_lst = function(.x, .f, ...) {
 #' @rdname lmap
 #' @export
 mclmap_lgl = function(.x, .f, ...) {
-  out = mclmap_lst(.x, .f, ...)
-  purrr::list_simplify(out, ptype = logical(0L))
+  mclmap_vec(.x, .f, ..., .ptype = logical(0L))
 }
 
 #' @rdname lmap
 #' @export
 mclmap_int = function(.x, .f, ...) {
-  out = mclmap_lst(.x, .f, ...)
-  purrr::list_simplify(out, ptype = integer(0L))
+  mclmap_vec(.x, .f, ..., .ptype = integer(0L))
 }
 
 #' @rdname lmap
 #' @export
 mclmap_dbl = function(.x, .f, ...) {
-  out = mclmap_lst(.x, .f, ...)
-  purrr::list_simplify(out, ptype = double(0L))
+  mclmap_vec(.x, .f, ..., .ptype = double(0L))
 }
 
 #' @rdname lmap
 #' @export
 mclmap_chr = function(.x, .f, ...) {
-  out = mclmap_lst(.x, .f)
-  purrr::list_simplify(out, ptype = character(0L))
+  mclmap_vec(.x, .f, ..., .ptype = character(0L))
 }
 
 #' @rdname lmap
 #' @export
-mclmap_vec = function(.x, .f, ...) {
+mclmap_vec = function(.x, .f, ..., .ptype = NULL) {
   out = mclmap_lst(.x, .f, ...)
-  purrr::list_simplify(out)
+  purrr::list_simplify(out, ptype = .ptype)
 }

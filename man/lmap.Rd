@@ -25,7 +25,7 @@ lmap_dbl(.x, .f)
 
 lmap_chr(.x, .f)
 
-lmap_vec(.x, .f)
+lmap_vec(.x, .f, .ptype = NULL)
 
 mclmap_lst(.x, .f, ...)
 
@@ -37,7 +37,7 @@ mclmap_dbl(.x, .f, ...)
 
 mclmap_chr(.x, .f, ...)
 
-mclmap_vec(.x, .f, ...)
+mclmap_vec(.x, .f, ..., .ptype = NULL)
 }
 \arguments{
 \item{.x}{A list.}
@@ -45,6 +45,8 @@ mclmap_vec(.x, .f, ...)
 \item{.f}{A function to apply to each subset of \code{.x}.}
 
 \item{mode}{Output type.}
+
+\item{.ptype}{A prototype for the output vector.}
 
 \item{...}{Additional arguments passed to \code{\link[parallel:mclapply]{parallel::mclapply()}}.}
 }

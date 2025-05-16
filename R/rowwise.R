@@ -52,11 +52,12 @@ rowwise_map_dbl = function(.x, .f) rowwise_map(.x, .f, "double")
 #' @export
 rowwise_map_chr = function(.x, .f) rowwise_map(.x, .f, "character")
 
+#' @param .ptype A prototype for the output vector.
 #' @rdname rowwise
 #' @export
-rowwise_map_vec = function(.x, .f) {
+rowwise_map_vec = function(.x, .f, .ptype = NULL) {
   out = rowwise_map(.x, .f)
-  purrr::list_simplify(out)
+  purrr::list_simplify(out, ptype = .ptype)
 }
 
 #' @description
@@ -72,34 +73,30 @@ rowwise_mcmap = function(.x, .f, ...) {
 #' @rdname rowwise
 #' @export
 rowwise_mcmap_lgl = function(.x, .f, ...) {
-  out = rowwise_mcmap(.x, .f, ...)
-  purrr::list_simplify(out, ptype = logical(0L))
+  rowwise_mcmap_vec(.x, .f, ..., .ptype = logical(0L))
 }
 
 #' @rdname rowwise
 #' @export
 rowwise_mcmap_int = function(.x, .f, ...) {
-  out = rowwise_mcmap(.x, .f, ...)
-  purrr::list_simplify(out, ptype = integer(0L))
+  rowwise_mcmap_vec(.x, .f, ..., .ptype = integer(0L))
 }
 
 #' @rdname rowwise
 #' @export
 rowwise_mcmap_dbl = function(.x, .f, ...) {
-  out = rowwise_mcmap(.x, .f, ...)
-  purrr::list_simplify(out, ptype = double(0L))
+  rowwise_mcmap_vec(.x, .f, ..., .ptype = double(0L))
 }
 
 #' @rdname rowwise
 #' @export
 rowwise_mcmap_chr = function(.x, .f, ...) {
-  out = rowwise_mcmap(.x, .f, ...)
-  purrr::list_simplify(out, ptype = character(0L))
+  rowwise_mcmap_vec(.x, .f, ..., .ptype = character(0L))
 }
 
 #' @rdname rowwise
 #' @export
-rowwise_mcmap_vec = function(.x, .f, ...) {
+rowwise_mcmap_vec = function(.x, .f, ..., .ptype = NULL) {
   out = rowwise_mcmap(.x, .f, ...)
-  purrr::list_simplify(out)
+  purrr::list_simplify(out, ptype = .ptype)
 }

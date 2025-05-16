@@ -29,7 +29,7 @@ rowwise_map_dbl(.x, .f)
 
 rowwise_map_chr(.x, .f)
 
-rowwise_map_vec(.x, .f)
+rowwise_map_vec(.x, .f, .ptype = NULL)
 
 rowwise_mcmap(.x, .f, ...)
 
@@ -41,7 +41,7 @@ rowwise_mcmap_dbl(.x, .f, ...)
 
 rowwise_mcmap_chr(.x, .f, ...)
 
-rowwise_mcmap_vec(.x, .f, ...)
+rowwise_mcmap_vec(.x, .f, ..., .ptype = NULL)
 }
 \arguments{
 \item{.x}{A data frame-like object.}
@@ -49,6 +49,8 @@ rowwise_mcmap_vec(.x, .f, ...)
 \item{.f}{A function to apply to each row.}
 
 \item{mode}{Output type.}
+
+\item{.ptype}{A prototype for the output vector.}
 
 \item{...}{Additional arguments passed to \code{\link[parallel:mclapply]{parallel::mclapply()}}.}
 }
